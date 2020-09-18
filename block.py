@@ -1,13 +1,22 @@
+'''
+Author: PlanC
+Date: 2020-08-31 11:36:33
+LastEditTime: 2020-09-18 15:55:19
+FilePath: \danmu_block\block.py
+'''
+#%%
+
 import os
 import json
 import requests
 import time
+import jieba.analyse
 import xml.dom.minidom
 from lxml import etree
 
 class Bilibili():
     """docstring for Bilibili"""
-    def __init__(self, oid):
+    def __init__(self, cid):
         self.headers = {
         'Host': 'comment.bilibili.com',
         'Connection': 'keep-alive',
@@ -19,7 +28,7 @@ class Bilibili():
         'Accept-Language': 'zh-CN, zh;q = 0.9',
         'Cookie': 'finger = edc6ecda; LIVE_BUVID = AUTO1415378023816310; stardustvideo = 1; CURRENT_FNVAL = 8; buvid3 = 0D8F3D74-987D-442D-99CF-42BC9A967709149017infoc; rpdid = olwimklsiidoskmqwipww; fts = 1537803390'
         }
-        self.url = 'http://comment.bilibili.com/' + str(oid) + '.xml'
+        self.url = 'http://comment.bilibili.com/' + str(cid) + '.xml'
         self.barrage_reault = self.get_page()
 
     # 获取信息
@@ -74,21 +83,20 @@ class Bilibili():
         root = doc.createElement('filters')
         doc.appendChild(root)
         double_barrages, results, barrages = self.remove_double_barrage()
-        # 重词计数
-        f = open('barrages_' + filename + '.txt', 'w', encoding='utf-8')
+        text = ""
         for barrage in barrages:
-            amount = double_barrages.count(barrage)
-            if (amount + 1 >= 5):
-                f.write(barrage + ':' + str(amount + 1) + '\n')
-                nodeItem = doc.createElement('item')
-                nodeItem.setAttribute('enabled', 'true')
-                nodeItem.appendChild(doc.createTextNode('t=' + barrage))
-                root.appendChild(nodeItem)
-
+            text = text + barrage
+        keywords_textrank = jieba.analyse.textrank(text)
+        for word in keywords_textrank:
+            nodeItem = doc.createElement('item')
+            nodeItem.setAttribute('enabled', 'false')
+            nodeItem.appendChild(doc.createTextNode('t=' + word))
+            root.appendChild(nodeItem)
         fp = open('block_' + filename + '.xml', 'w', encoding='utf-8')
         doc.writexml(fp, indent = '\t', addindent = '\t', newl = '\n', encoding = "utf-8")
-        f.close()
         fp.close()
+        print(keywords_textrank)
+
 
 def CIDget(bvid):#获取视频cid
     url = "https://api.bilibili.com/x/player/pagelist?bvid=" + str(bvid) + "&jsonp=jsonp"
