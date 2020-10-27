@@ -1,7 +1,7 @@
 '''
 Author: PlanC
 Date: 2020-08-31 11:36:33
-LastEditTime: 2020-09-18 15:55:19
+LastEditTime: 2020-10-27 09:04:24
 FilePath: \danmu_block\block.py
 '''
 #%%
@@ -59,30 +59,12 @@ class Bilibili():
             results = html.xpath('//d//text()')
             return results
 
-    # 弹幕去重
-    def remove_double_barrage(self):
-        '''
-        double_arrage:所有重复弹幕的集合
-        results:去重后的弹幕
-        barrage:每种弹幕内容都存储一遍
-        '''
-        double_barrage = []
-        results = []
-        barrage = set()
-        for result in self.param_page():
-            if result not in results:
-                results.append(result)
-            else:
-                double_barrage.append(result)
-                barrage.add(result)
-        return double_barrage, results, barrage
-
-    # 弹幕重复计算和词云的制作
+    # 词云制作
     def make_wordCloud(self, filename):
         doc = xml.dom.minidom.Document()
         root = doc.createElement('filters')
         doc.appendChild(root)
-        double_barrages, results, barrages = self.remove_double_barrage()
+        barrages = self.param_page()
         text = ""
         for barrage in barrages:
             text = text + barrage
@@ -97,13 +79,13 @@ class Bilibili():
         fp.close()
         print(keywords_textrank)
 
-
-def CIDget(bvid):#获取视频cid
-    url = "https://api.bilibili.com/x/player/pagelist?bvid=" + str(bvid) + "&jsonp=jsonp"
-    response = requests.get(url)
-    dirt = json.loads(response.text)
-    cid = dirt['data'][0]['cid']
-    return cid
+    #获取视频cid
+    def CIDget(bvid):
+        url = "https://api.bilibili.com/x/player/pagelist?bvid=" + str(bvid) + "&jsonp=jsonp"
+        response = requests.get(url)
+        dirt = json.loads(response.text)
+        cid = dirt['data'][0]['cid']
+        return cid
 
 if __name__ ==  '__main__':
     #jojo1_and_jojo2 = Bilibili(CIDget("BV1MJ411S7LK"))
@@ -119,4 +101,4 @@ if __name__ ==  '__main__':
     #jojo5.make_wordCloud("jojo5")
 
     video = input("input BV (bid):")
-    Bilibili(CIDget(video)).make_wordCloud(video)
+    Bilibili(Bilibili.CIDget(video)).make_wordCloud(video)

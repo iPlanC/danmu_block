@@ -1,13 +1,7 @@
 <!--
  * @Author: PlanC
  * @Date: 2020-09-18 18:09:25
- * @LastEditTime: 2020-09-18 18:12:57
- * @FilePath: \danmu_block\README.md
--->
-<!--
- * @Author: PlanC
- * @Date: 2020-08-31 13:54:22
- * @LastEditTime: 2020-09-18 15:53:55
+ * @LastEditTime: 2020-10-26 08:53:00
  * @FilePath: \danmu_block\readme.md
 -->
 
@@ -33,6 +27,9 @@
 
 ### 下载
 https://github.com/iPlanC/danmu_block/releases
+
+### 反馈
+https://github.com/iPlanC/danmu_block/issues
 
 ### TODO
 - [x] 添加词云提炼关键词加强屏蔽强度。
