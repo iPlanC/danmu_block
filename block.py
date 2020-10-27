@@ -1,7 +1,7 @@
 '''
 Author: PlanC
 Date: 2020-08-31 11:36:33
-LastEditTime: 2020-10-27 09:04:24
+LastEditTime: 2020-10-27 09:10:59
 FilePath: \danmu_block\block.py
 '''
 #%%
@@ -80,7 +80,7 @@ class Bilibili():
         print(keywords_textrank)
 
     #获取视频cid
-    def CIDget(bvid):
+    def CIDget(self, bvid):
         url = "https://api.bilibili.com/x/player/pagelist?bvid=" + str(bvid) + "&jsonp=jsonp"
         response = requests.get(url)
         dirt = json.loads(response.text)
