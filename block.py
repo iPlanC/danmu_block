@@ -1,7 +1,7 @@
 '''
 Author: PlanC
 Date: 2020-08-31 11:36:33
-LastEditTime: 2020-10-27 09:10:59
+LastEditTime: 2020-10-27 09:53:54
 FilePath: \danmu_block\block.py
 '''
 #%%
@@ -101,4 +101,4 @@ if __name__ ==  '__main__':
     #jojo5.make_wordCloud("jojo5")
 
     video = input("input BV (bid):")
-    Bilibili(Bilibili.CIDget(video)).make_wordCloud(video)
+    Bilibili(Bilibili.CIDget(Bilibili, video)).make_wordCloud(video)
