@@ -1,9 +1,10 @@
-'''
-Author: PlanC
-Date: 2020-11-05 10:57:56
-LastEditTime: 2020-11-05 11:24:15
-FilePath: \danmu_block\update.py
-'''
+#
+# Author: PlanC
+# Date: 2020-11-05 10:57:56
+# LastEditTime: 2020-11-05 11:30:19
+# FilePath: \danmu_block\update.py
+
+#%%
 
 import MySQLdb
 import xml.dom.minidom
@@ -21,6 +22,7 @@ def getlist(bvid):
         print("can\"t fentch data")
         return
     keywords_textrank = cursor.fetchall()
+    print(keywords_textrank)
     db.close()
 
     # 如果列表不为空则写入xml
@@ -46,5 +48,5 @@ def getlist(bvid):
         print("unable to fetch any data from shared datbase, please try to fetch from original video")
 
 if __name__ == "__main__":
-    bvid = input("input the bvid to fetch from database, input % for all\n")
+    bvid = input("input the bvid to fetch from database, input % for all:")
     getlist(bvid)

@@ -1,7 +1,7 @@
 <!--
  * @Author: PlanC
  * @Date: 2020-09-18 18:09:25
- * @LastEditTime: 2020-10-26 08:53:00
+ * @LastEditTime: 2020-11-05 11:28:14
  * @FilePath: \danmu_block\readme.md
 -->
 
@@ -9,9 +9,10 @@
 ## thanks to 唐·吉坷德@https://blog.csdn.net/weixin_36605200/article/details/82848020
 
 ### 使用
+#### 正常筛选过程
 - 请确保已安装`python3`和`pip`，或运行`install.cmd`进行安装；
 - 首次使用请务必运行`init.cmd`；
-- 在控制台显示`input BV (BID):`时请输入视频<sup>(未测试)</sup>或番剧的BV号，**请勿使用<kbd>Ctrl</kbd>+<kbd>C</kbd>粘贴文本，会使程序结束(非bug)，必要时请使用右键粘贴；**
+- 在控制台显示`input BV (BID):`时请输入视频或番剧的BV号，**请勿使用<kbd>Ctrl</kbd>+<kbd>C</kbd>粘贴文本，会使程序结束(非bug)，必要时请使用右键粘贴；**
     ```
     input BV (bid):BV1Ka4y1E75V
     ```
@@ -20,6 +21,12 @@
     bilibli.xml
     barrages_[bid].xml
     ```
+#### 使用其他用户的筛选结果
+- 这种方法较为省时，在低配机器上运行效果良好；
+- 请确保已安装`python3`和`pip`，或运行`install.cmd`进行安装；
+- 首次使用请务必运行`init.cmd`；
+- 在控制台显示`input the bvid to fetch from database, input % for all:`时输入视频或番剧的BV号，**请勿使用<kbd>Ctrl</kbd>+<kbd>C</kbd>粘贴文本，会使程序结束(非bug)，必要时请使用右键粘贴；**
+- 可以输入BV号或`%`来下载全部屏蔽数据
 
 ### 导入
 ![image](howtouse.png)

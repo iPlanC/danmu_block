@@ -1,15 +1,9 @@
-"""
-Author: PlanC
-Date: 2020-11-05 08:49:19
-LastEditTime: 2020-11-05 11:14:50
-FilePath: \danmu_block\block.py
-"""
-"""
-Author: PlanC
-Date: 2020-08-31 11:36:33
-LastEditTime: 2020-11-05 10:58:16
-FilePath: \danmu_block\block.py
-"""
+#
+# Author: PlanC
+# Date: 2020-11-05 08:49:19
+# LastEditTime: 2020-11-05 11:14:50
+# FilePath: \danmu_block\block.py
+
 #%%
 
 import os
