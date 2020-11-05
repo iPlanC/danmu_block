@@ -6,7 +6,7 @@
 
 #%%
 
-import os
+import sys
 import json
 import requests
 import time
@@ -112,6 +112,10 @@ if __name__ ==  "__main__":
     #jojo3_2.make_wordCloud("jojo3_2")
     #jojo4.make_wordCloud("jojo4")
     #jojo5.make_wordCloud("jojo5")
-
-    video = input("input BV (bid):")
-    Bilibili(Bilibili.CIDget(Bilibili, video)).make_wordCloud(video)
+    if len(sys.argv) == 1:
+        video = input("input BV (bid):")
+        Bilibili(Bilibili.CIDget(Bilibili, video)).make_wordCloud(video)
+    else:
+        for video in sys.argv[1:]:
+            print("Working on " + video)
+            Bilibili(Bilibili.CIDget(Bilibili, video)).make_wordCloud(video)

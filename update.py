@@ -6,6 +6,7 @@
 
 #%%
 
+import sys
 import MySQLdb
 import xml.dom.minidom
 
@@ -48,5 +49,9 @@ def getlist(bvid):
         print("unable to fetch any data from shared datbase, please try to fetch from original video")
 
 if __name__ == "__main__":
-    bvid = input("input the bvid to fetch from database, input % for all:")
-    getlist(bvid)
+    if len(sys.argv) == 1:
+        video = input("input the bvid to fetch from database, input % for all:")
+    else:
+        for video in sys.argv[1:]:
+            print("Working on " + video)
+            getlist(video)
