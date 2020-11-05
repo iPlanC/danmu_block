@@ -1,8 +1,8 @@
 '''
 Author: PlanC
 Date: 2020-08-31 11:36:33
-LastEditTime: 2020-10-27 09:53:54
-FilePath: \danmu_block\block.py
+LastEditTime: 2020-11-05 09:22:04
+FilePath: \danmu_block_sql\block.py
 '''
 #%%
 
@@ -10,6 +10,7 @@ import os
 import json
 import requests
 import time
+import MySQLdb
 import jieba.analyse
 import xml.dom.minidom
 from lxml import etree
@@ -52,7 +53,7 @@ class Bilibili():
     # 解析网页
     def param_page(self):
         time.sleep(1)
-        if  self.barrage_reault:
+        if self.barrage_reault:
             # 文件路径，html解析器
             html = etree.parse('bilibili.xml', etree.HTMLParser())
             # xpath解析，获取当前所有的d标签下的所有文本内容
@@ -60,7 +61,7 @@ class Bilibili():
             return results
 
     # 词云制作
-    def make_wordCloud(self, filename):
+    def make_wordCloud(self, bvid):
         doc = xml.dom.minidom.Document()
         root = doc.createElement('filters')
         doc.appendChild(root)
@@ -74,10 +75,21 @@ class Bilibili():
             nodeItem.setAttribute('enabled', 'false')
             nodeItem.appendChild(doc.createTextNode('t=' + word))
             root.appendChild(nodeItem)
-        fp = open('block_' + filename + '.xml', 'w', encoding='utf-8')
+        fp = open('block_' + bvid + '.xml', 'w', encoding='utf-8')
         doc.writexml(fp, indent = '\t', addindent = '\t', newl = '\n', encoding = "utf-8")
         fp.close()
         print(keywords_textrank)
+        self.post_word(keywords_textrank, bvid)
+
+    # 传输至远端sql数据库用作日后统计
+    def post_word(self, words, bvid):
+        db = MySQLdb.connect("39.106.19.94", "danmu_user", "idislikejojo", "danmu_block")
+        db.set_character_set('utf8')
+        cursor = db.cursor()
+        for word in words:
+            cursor.execute("insert into blocker values(\"" + word + "\", \"" + bvid + "\")")
+            db.commit()
+        db.close()
 
     #获取视频cid
     def CIDget(self, bvid):
